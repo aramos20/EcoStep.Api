@@ -1,0 +1,6 @@
+@EcoStep.Api_HostAddress = http://localhost:5267
+
+GET {{EcoStep.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
