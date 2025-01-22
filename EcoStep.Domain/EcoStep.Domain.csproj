@@ -10,8 +10,4 @@
     <ProjectReference Include="..\EcoStep.Shared\EcoStep.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
