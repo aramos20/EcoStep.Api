@@ -1,6 +1,6 @@
 services:
   ecostep.api:
-    image: gutierrezdc/ecostepapi
+    image: dash977/ecostepapi
     build:
       context: .
       dockerfile: EcoStep.Api/Dockerfile
