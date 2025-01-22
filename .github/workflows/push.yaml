@@ -26,7 +26,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ inputs.dotnet-version }}
+          dotnet-version: ${{ github.event.inputs.dotnet-version || '9.0.x' }}
 
       - name: Calculate cache Key
         id: cache-key
