@@ -46,7 +46,7 @@ jobs:
         run: dotnet restore "./EcoStep.Api/EcoStep.Api.csproj"
 
       - name: Audit dependencies for vulnerabilities
-        run: dotnet list package --vulnerable --include-transitive --projects EcoStep.Api EcoStep.Application EcoStep.Domain EcoStep.Infrastructure EcoStep.Shared
+        run: dotnet list package --vulnerable --include-transitive
 
   # build:
   #   name: Build
