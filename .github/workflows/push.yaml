@@ -41,12 +41,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-dotnet-
 
-      - name: Audit dependencies for vulnerabilities
-        run: dotnet list package --vulnerable --include-transitive
-
       - name: Install dependencies
         if: ${{ !steps.cache.outputs.cache-hit }}
         run: dotnet restore
+
+      - name: Audit dependencies for vulnerabilities
+        run: dotnet list package --vulnerable --include-transitive
 
   # build:
   #   name: Build
@@ -70,7 +70,7 @@ jobs:
   #     - name: Building
   #       run: npm run build
 
-  Buil-tag-push-image:
+  Tah-and-push-image:
     name: Build, tag, and push image to Amazon ECR
     runs-on: ubuntu-latest
     steps:
