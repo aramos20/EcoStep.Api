@@ -28,13 +28,11 @@ namespace EcoStep.Api.Controllers
             .ToArray();
         }
 
-        // Nueva acción para probar la conexión a la base de datos
         [HttpGet("test-db")]
         public async Task<IActionResult> TestDatabaseConnection()
         {
             try
             {
-                // Intenta realizar una consulta básica en la base de datos
                 var canConnect = await _dbContext.Database.CanConnectAsync();
                 if (canConnect)
                 {
