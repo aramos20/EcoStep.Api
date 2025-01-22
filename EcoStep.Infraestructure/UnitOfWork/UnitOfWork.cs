@@ -1,4 +1,6 @@
 ﻿using EcoStep.Infrastructure.Data;
+using EcoStep.Infrastructure.Repositories.Classes;
+using EcoStep.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -7,18 +9,18 @@ namespace EcoStep.Infrastructure.UnitOfWork
     public  class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _dbContext;
+        public IUserRepository UserRepository { get; }
 
         public UnitOfWork
         (
-            ApplicationDbContext dbContext
-            //IAuthRepository authRepository,
-           
+            ApplicationDbContext dbContext,
+            IUserRepository userRepository
             )
         {
             _dbContext = dbContext;
-            //AuthRepository = authRepository;
+            UserRepository = userRepository;
+            
         }
-
 
         public async Task<int> Complete(CancellationToken cancellationToken)
         {

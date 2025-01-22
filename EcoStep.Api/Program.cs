@@ -5,18 +5,42 @@ using EcoStep.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using DotNetEnv;
-using System.Text.Json;
-using Npgsql;
+using EcoStep.Infrastructure.Extensions.Claims.ServiceWrapper;
+using EcoStep.Infrastructure.UnitOfWork;
+using EcoStep.Infrastructure.Repositories.Classes;
+using EcoStep.Infrastructure.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
 Env.Load();
 
 // Connection String
-string? connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
+string? stringConnection = Environment.GetEnvironmentVariable("DB_CONNECTION");
+builder.Configuration["ConnectionStrings:DefaultConnection"] = stringConnection;
+
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+
 
 #region Services Configuration
 
+
+
+
+#region Services
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserContext, UserContext>();
+
+#endregion
+
+#region Repositories
+
+//builder.Services.AddScoped<IUserRe>()
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+
+#endregion
 // Add controllers
 builder.Services.AddControllers();
 
@@ -134,10 +158,13 @@ app.UseStaticFiles();
 
 #endregion
 
+
+
+
 #region Middleware Configuration
 
 // Swagger configuration
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
